@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#070B14" />
+<meta name="color-scheme" content="light" />
+<meta name="description" content="Ghid interactiv al produselor și brandurilor 100% românești, pentru cumpărături la raft." />
+<meta name="author" content="Raft Românesc" />
+<title>Raft Românesc – Produse și Branduri 100% Românești</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%87%B7%F0%9F%87%B4%3C/text%3E%3C/svg%3E" />
+<style>
+  :root{
+    --surface-obsidian:#070B14;
+    --surface-obsidian-subtle:#0D1527;
+    --surface-ground:#F8FAFC;
+    --surface-card:#FFFFFF;
+    --surface-border:#E2E8F0;
+    --surface-border-strong:#CBD5E1;
+
+    --text-primary:#0F172A;
+    --text-secondary:#334155;
+    --text-muted:#475569;
+    --text-inverse:#F8FAFC;
+    --text-inverse-muted:#94A3B8;
+
+    --tricolor-blue:#1D4ED8;
+    --tricolor-blue-glow:rgba(29,78,216,.35);
+    --tricolor-gold:#F59E0B;
+    --tricolor-gold-glow:rgba(245,158,11,.40);
+    --tricolor-red:#DC2626;
+    --tricolor-red-glow:rgba(220,38,38,.35);
+
+    --badge-emerald:#059669;
+    --badge-emerald-bg:#ECFDF5;
+    --badge-emerald-border:#A7F3D0;
+
+    --shadow-sm:0 1px 2px rgba(0,0,0,.04);
+    --shadow-card:0 4px 12px -2px rgba(15,23,42,.05),0 2px 4px -1px rgba(15,23,42,.03);
+    --shadow-card-hover:0 16px 32px -6px rgba(15,23,42,.10),0 6px 12px -3px rgba(15,23,42,.05);
+    --shadow-spotlight:0 20px 40px -12px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.12);
+    --shadow-spotlight-focus:0 24px 48px -12px rgba(29,78,216,.25),0 0 0 3px rgba(245,158,11,.45);
+
+    --ease-spring:cubic-bezier(0.16,1,0.3,1);
+    --transition-instant:100ms var(--ease-spring);
+    --transition-smooth:240ms var(--ease-spring);
+    --transition-deliberate:350ms var(--ease-spring);
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ -webkit-text-size-adjust:100%; }
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-size:17px;
+    line-height:1.45;
+    background:var(--surface-ground);
+    color:var(--text-primary);
+    -webkit-tap-highlight-color:transparent;
+    text-rendering:optimizeLegibility;
+  }
+  img,svg{ display:block; max-width:100%; }
+  /* Emoji native (Unicode direct în text), randare color garantată */
+  .flag,.pill > span:first-child,.card-ico,.empty-ico,.advisory li .ico,.offline{
+    font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji","Twemoji Mozilla",sans-serif;
+    font-style:normal;
+  }
+  .hidden{ display:none !important; }
+  .print-only{ display:none; }
+  :focus-visible{ outline:3px solid var(--tricolor-blue); outline-offset:2px; border-radius:6px; }
+  .hero :focus-visible{ outline-color:var(--tricolor-gold); }
+
+  .wrap{ max-width:1152px; margin:0 auto; padding:0 16px; }
+
+  /* ---------- 1. HALO TRICOLOR (static, dispare natural la scroll) ---------- */
+  .halo{
+    position:relative; display:block; width:100%; height:6px; pointer-events:none;
+    background:linear-gradient(90deg,var(--tricolor-blue) 0%,var(--tricolor-gold) 50%,var(--tricolor-red) 100%);
+    box-shadow:0 2px 14px var(--tricolor-gold-glow);
+  }
+
+  /* ---------- 2. HEADER OBSIDIAN ---------- */
+  .hero{
+    position:relative; overflow:hidden; background:var(--surface-obsidian);
+    color:var(--text-inverse); box-shadow:0 8px 30px -12px rgba(7,11,20,.55);
+  }
+  .hero::before{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:
+      radial-gradient(circle at 20% 0%, rgba(29,78,216,.18) 0%, transparent 60%),
+      radial-gradient(circle at 80% 0%, rgba(220,38,38,.16) 0%, transparent 60%),
+      radial-gradient(circle at 50% 100%, rgba(245,158,11,.12) 0%, transparent 50%);
+  }
+  .hero-inner{ position:relative; z-index:1; padding-top:28px; padding-bottom:22px; }
+
+  .brandline{ display:flex; align-items:center; gap:14px; }
+  .flag{ font-size:34px; line-height:1; filter:drop-shadow(0 3px 8px rgba(0,0,0,.4)); }
+  .brand-text-block{ min-width:0; }
+  .title{
+    margin:0; font-size:1.75rem; font-weight:800; line-height:1.1;
+    letter-spacing:-0.035em; color:var(--text-inverse);
+  }
+  .origin-pill{
+    display:inline-flex; align-items:center; gap:7px; margin-top:9px;
+    padding:4px 12px; border-radius:9999px;
+    background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18);
+    -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+    font-size:.6875rem; font-weight:800; letter-spacing:.09em; text-transform:uppercase;
+    color:var(--text-inverse);
+  }
+  .origin-dot{
+    width:6px; height:6px; border-radius:50%; flex:none;
+    background:linear-gradient(180deg,var(--tricolor-blue) 33.33%,var(--tricolor-gold) 33.33% 66.66%,var(--tricolor-red) 66.66%);
+    box-shadow:0 0 9px var(--tricolor-gold-glow);
+    animation:pulse 3s var(--ease-spring) infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ opacity:1; transform:scale(1); }
+    50%{ opacity:.5; transform:scale(.78); }
+  }
+
+  /* ---------- 3. SPOTLIGHT SEARCH ---------- */
+  .search-wrap{ position:relative; margin-top:24px; max-width:780px; }
+  .search-ico{
+    position:absolute; left:20px; top:50%; transform:translateY(-50%);
+    width:20px; height:20px; color:#1E293B; pointer-events:none;
+  }
+  .search-input{
+    width:100%; height:56px; border:1px solid rgba(255,255,255,.14); border-radius:9999px;
+    padding:0 58px 0 54px;
+    font:inherit; font-size:18px; font-weight:500;
+    color:var(--text-primary); background:#FFFFFF;
+    box-shadow:var(--shadow-spotlight);
+    transition:transform var(--transition-smooth), box-shadow var(--transition-smooth);
+  }
+  .search-input::placeholder{ color:#475569; font-style:italic; opacity:1; }
+  .search-input:focus{
+    outline:none; transform:scale(1.008);
+    box-shadow:var(--shadow-spotlight-focus);
+  }
+  input[type="search"]::-webkit-search-cancel-button{ -webkit-appearance:none; appearance:none; }
+  input[type="search"]::-webkit-search-decoration{ -webkit-appearance:none; appearance:none; }
+  .clear-btn{
+    position:absolute; right:15px; top:50%;
+    width:28px; height:28px; padding:0; border:0; border-radius:9999px;
+    background:#F1F5F9; color:var(--text-primary);
+    font:inherit; font-size:.875rem; font-weight:800; line-height:1; cursor:pointer;
+    display:grid; place-items:center;
+    transform:translateY(-50%) scale(.72); opacity:0; visibility:hidden; pointer-events:none;
+    transition:transform var(--transition-smooth), opacity var(--transition-smooth),
+               background-color var(--transition-instant), color var(--transition-instant);
+  }
+  .clear-btn.show{ opacity:1; visibility:visible; pointer-events:auto; transform:translateY(-50%) scale(1); }
+  .clear-btn:hover{ background:#CBD5E1; }
+  .clear-btn:active{ transform:translateY(-50%) scale(.9); }
+
+  .meta{ margin:14px 0 0; color:var(--text-inverse-muted); font-size:.8125rem; font-weight:500; }
+
+  /* ---------- 4. CATEGORY RIBBON ---------- */
+  .ribbon{
+    position:relative; z-index:1;
+    background:var(--surface-obsidian-subtle); border-top:1px solid rgba(255,255,255,.08);
+  }
+  .pills-wrap{ display:flex; align-items:center; gap:8px; }
+  .pills{
+    flex:1 1 auto; min-width:0;
+    display:flex; gap:8px; overflow-x:auto; padding:12px 2px;
+    scrollbar-width:none; -ms-overflow-style:none; cursor:grab;
+    -webkit-user-select:none; user-select:none;
+    -webkit-overflow-scrolling:touch;
+  }
+  .pills::-webkit-scrollbar{ display:none; width:0; height:0; }
+  .pills::-webkit-scrollbar-thumb{ background:transparent; }
+  .pill > span:first-child{ display:inline-flex; align-items:center; line-height:1; }
+  .pills.dragging{ cursor:grabbing; scroll-behavior:auto; }
+  .pill{
+    min-height:44px; display:inline-flex; align-items:center; gap:.45rem;
+    padding:0 1rem; border-radius:9999px;
+    background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15); color:var(--text-inverse);
+    font:inherit; font-size:.9375rem; font-weight:600; white-space:nowrap; cursor:pointer;
+    transition:background-color var(--transition-smooth), color var(--transition-smooth),
+               border-color var(--transition-smooth), box-shadow var(--transition-smooth),
+               transform var(--transition-instant);
+  }
+  @media (hover:hover) and (pointer:fine){ .pill:hover{ background:rgba(255,255,255,.16); transform:translateY(-1px); } }
+  .pill.active{
+    background:#FFFFFF; color:var(--surface-obsidian);
+    font-weight:700; border-color:#FFFFFF;
+    box-shadow:0 4px 16px rgba(255,255,255,.25);
+  }
+  .pill:active{ transform:scale(.96); }
+
+  .chev{
+    display:none; flex:none; align-items:center; justify-content:center;
+    width:42px; height:42px; padding:0; border-radius:9999px;
+    background:rgba(13,21,39,.75); border:1px solid rgba(255,255,255,.20); color:#FFFFFF;
+    cursor:pointer;
+    -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
+    box-shadow:0 6px 16px rgba(0,0,0,.3);
+    transition:transform var(--transition-instant), background-color var(--transition-smooth), opacity var(--transition-smooth);
+  }
+  .chev svg{ width:18px; height:18px; }
+  .chev:hover:not(:disabled){ transform:scale(1.08); background:rgba(29,78,216,.55); }
+  .chev:active:not(:disabled){ transform:scale(.95); }
+  .chev:disabled{ opacity:.3; cursor:default; }
+  @media (min-width:1024px){ .chev{ display:inline-flex; } }
+
+  /* ---------- MAIN ---------- */
+  .main{ padding-top:26px; padding-bottom:40px; }
+  .info{
+    margin:0 0 18px; font-size:.875rem; font-weight:700;
+    letter-spacing:.01em; color:var(--text-muted);
+  }
+
+  .grid{ display:grid; grid-template-columns:1fr; gap:20px; align-items:stretch; }
+  @media (min-width:1024px){ .grid{ grid-template-columns:1fr 1fr; gap:24px; } }
+
+  /* ---------- 5. CATEGORY CARDS ---------- */
+  .card{
+    display:flex; flex-direction:column; height:100%;
+    background:var(--surface-card);
+    border:1.5px solid var(--surface-border); border-radius:22px;
+    box-shadow:var(--shadow-card); overflow:hidden;
+    transition:transform var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-smooth);
+  }
+  .card-body{ flex:1 1 auto; }
+  .note{ flex:none; }
+  @media (hover:hover) and (pointer:fine){
+    .card:hover{
+      transform:translateY(-4px);
+      box-shadow:var(--shadow-card-hover);
+      border-color:var(--surface-border-strong);
+    }
+  }
+
+  .card-head{
+    display:flex; align-items:center; gap:12px; padding:16px 18px;
+    border-bottom:1px solid var(--surface-border);
+    border-radius:20px 20px 0 0;
+  }
+  .card-ico{
+    flex:none; width:44px; height:44px; border-radius:50%;
+    display:grid; place-items:center; font-size:1.4rem; line-height:1;
+    background:#FFFFFF; box-shadow:0 3px 10px rgba(15,23,42,.14);
+  }
+  .card-title{
+    margin:0; flex:1 1 auto; min-width:0;
+    font-size:1.25rem; font-weight:700; line-height:1.15;
+    letter-spacing:-0.02em; color:var(--text-primary);
+  }
+  .count-pill{
+    flex:none; padding:4px 11px; border-radius:9999px;
+    background:rgba(15,23,42,.05); border:1px solid var(--surface-border);
+    font-size:.75rem; font-weight:700; color:var(--text-secondary); white-space:nowrap;
+  }
+
+  .brand-row{
+    display:flex; align-items:center; gap:12px;
+    padding:13px 18px; border-bottom:1px solid #F1F5F9;
+    transition:background-color var(--transition-instant);
+  }
+  .brand-row:last-child{ border-bottom:0; }
+  .brand-row:hover{ background:#F8FAFC; }
+
+  .seal{
+    flex:none; width:24px; height:24px; border-radius:50%;
+    display:grid; place-items:center;
+    background:var(--badge-emerald-bg); border:1px solid var(--badge-emerald-border);
+    color:var(--badge-emerald);
+  }
+  .seal svg{ width:13px; height:13px; }
+
+  .brand-text{ flex:1 1 auto; min-width:0; }
+  .brand-name{
+    margin:0; font-size:1.0625rem; font-weight:700; line-height:1.3;
+    letter-spacing:-0.01em; color:var(--text-primary);
+  }
+  .brand-desc{
+    margin:2px 0 0; font-size:.875rem; font-weight:500; line-height:1.35;
+    color:var(--text-secondary);
+  }
+  .loc-chip{
+    flex:none; display:inline-flex; align-items:center; gap:4px;
+    padding:4px 9px; border-radius:9999px;
+    background:#F8FAFC; border:1px solid var(--surface-border);
+    font-size:.75rem; font-weight:600; color:var(--text-secondary); white-space:nowrap;
+  }
+  .loc-chip svg{ width:12px; height:12px; color:var(--text-muted); }
+
+  .note{
+    margin:0; padding:12px 18px; background:#F8FAFC;
+    border-top:1px solid var(--surface-border);
+    font-size:.8125rem; line-height:1.5; color:var(--text-muted);
+  }
+  .note strong{ color:var(--text-secondary); }
+
+  mark{ background:#FDE68A; color:var(--text-primary); border-radius:4px; padding:0 2px; }
+
+  /* ---------- EMPTY STATE ---------- */
+  .empty{
+    display:none; max-width:620px; margin:36px auto; padding:44px 28px;
+    background:var(--surface-card); border:1px solid var(--surface-border); border-radius:22px;
+    box-shadow:var(--shadow-card); text-align:center;
+  }
+  .empty.show{ display:block; animation:fadeIn var(--transition-deliberate) both; }
+  .empty-ico{ font-size:2.5rem; line-height:1; display:block; margin-bottom:12px; }
+  .empty p{ margin:0; font-size:1.0625rem; font-weight:600; color:var(--text-secondary); }
+  @keyframes fadeIn{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:none; } }
+
+  /* ---------- 6. ADVISORY BOARD ---------- */
+  .advisory{
+    margin-top:44px; padding:24px;
+    background:#FFFDF5; border:1px solid var(--tricolor-gold); border-radius:22px;
+    box-shadow:var(--shadow-card);
+  }
+  .advisory-head{ display:flex; align-items:center; gap:14px; }
+  .advisory-shield{
+    flex:none; width:46px; height:46px; border-radius:13px;
+    display:grid; place-items:center; color:#B45309;
+    background:linear-gradient(135deg,#FEF3C7,#FDE68A); border:1px solid var(--tricolor-gold);
+    box-shadow:0 3px 10px rgba(245,158,11,.28);
+  }
+  .advisory-shield svg{ width:24px; height:24px; }
+  .advisory h2{
+    margin:0; font-size:1.25rem; font-weight:800;
+    letter-spacing:-0.02em; color:#78350F; line-height:1.15;
+  }
+  .advisory .lead{ margin:4px 0 0; font-size:.8125rem; font-weight:600; color:#B45309; }
+  .advisory ul{ list-style:none; margin:20px 0 0; padding:0; display:grid; gap:12px; }
+  .advisory li{
+    display:flex; gap:12px; font-size:.9375rem; line-height:1.5; color:#451A03;
+    padding-bottom:12px; border-bottom:1px solid rgba(245,158,11,.28);
+  }
+  .advisory li:last-child{ border-bottom:0; padding-bottom:0; }
+  .advisory li .ico{ flex:none; line-height:1.45; }
+  .advisory li strong{ color:#78350F; }
+  .advisory li em{ color:#92400E; font-style:normal; font-weight:600; }
+
+  /* ---------- 7. BOTTOM CONTROLS ---------- */
+  .controls{ margin-top:36px; display:flex; flex-direction:column; align-items:center; gap:16px; }
+  .print-btn{
+    display:inline-flex; align-items:center; gap:9px;
+    padding:14px 28px; border:0; border-radius:9999px;
+    background:var(--text-primary); color:#FFFFFF;
+    font:inherit; font-size:1rem; font-weight:600; cursor:pointer;
+    box-shadow:0 12px 28px -10px rgba(15,23,42,.55);
+    transition:transform var(--transition-instant), box-shadow var(--transition-smooth), background-color var(--transition-instant);
+  }
+  .print-btn svg{ width:18px; height:18px; }
+  .print-btn:hover{ transform:translateY(-2px); background:#1E293B; }
+  .print-btn:active{ transform:scale(.97); }
+  .offline{
+    display:inline-flex; align-items:center; gap:7px;
+    padding:6px 14px; border-radius:9999px;
+    background:#FFFFFF; border:1px solid var(--surface-border);
+    font-size:.8125rem; font-weight:600; color:var(--text-secondary);
+  }
+
+  .totop{
+    position:fixed; right:16px; bottom:16px; z-index:60;
+    width:52px; height:52px; border:0; border-radius:9999px;
+    background:var(--text-primary); color:#FFFFFF; cursor:pointer;
+    font:inherit; font-size:1.35rem; font-weight:800;
+    display:none; align-items:center; justify-content:center;
+    box-shadow:0 12px 28px -8px rgba(15,23,42,.5);
+    transition:transform var(--transition-instant);
+  }
+  .totop.show{ display:flex; }
+  .totop:active{ transform:scale(.94); }
+
+  @media (min-width:768px){
+    body{ font-size:18px; }
+    .title{ font-size:2.25rem; }
+    .search-input{ height:62px; }
+    .hero-inner{ padding-top:36px; padding-bottom:28px; }
+  }
+
+  @media (max-width:400px){
+    .loc-chip{ display:none; }
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{
+      animation-duration:.001ms !important; animation-iteration-count:1 !important;
+      transition-duration:.001ms !important; scroll-behavior:auto !important;
+    }
+  }
+
+  /* ---------- PRINT ---------- */
+  @media print{
+    body{ background:#FFFFFF; color:#000000; font-size:10.5pt; }
+    .hidden-print,.halo,.hero,.controls,.totop{ display:none !important; }
+    .main{ padding:0; max-width:none; }
+    .info{ margin:0 0 8px; color:#000; }
+    .grid{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .card{
+      break-inside:avoid; page-break-inside:avoid;
+      box-shadow:none; border:1.5px solid #000; border-radius:8px;
+    }
+    .card-head{ background:#FFFFFF !important; border-bottom:1px solid #000; }
+    .card-ico{ box-shadow:none; }
+    .card-title,.brand-name,.brand-text,.loc-chip{ color:#000 !important; }
+    .count-pill,.note,.advisory{ border-color:#000; color:#000; background:#FFFFFF; }
+    .note{ background:#FFFFFF; color:#000; }
+    .brand-row{ padding:3px 8px; border-bottom:1px solid #DDD; }
+    .brand-row:hover{ background:transparent; }
+    .brand-desc{ color:#000; }
+    .seal,.loc-chip{ background:#FFFFFF; border-color:#000; color:#000; }
+    .advisory{ border:1.5px solid #000; margin-top:12px; }
+    .advisory h2,.advisory li,.advisory .lead{ color:#000; }
+    .advisory li{ border-bottom:1px solid #CCC; }
+    .print-only{ display:block !important; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="halo" aria-hidden="true"></div>
+
+  <!-- HEADER OBSIDIAN + CĂUTARE + CATEGORII -->
+  <header class="hero hidden-print">
+    <div class="wrap hero-inner">
+      <div class="brandline">
+        <span class="flag" aria-hidden="true">🇷🇴</span>
+        <div class="brand-text-block">
+          <h1 class="title">Raft Românesc</h1>
+          <span class="origin-pill"><span class="origin-dot" aria-hidden="true"></span>100% Capital Românesc</span>
+        </div>
+      </div>
+
+      <div class="search-wrap">
+        <span class="search-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5l-4-4"/></svg>
+        </span>
+        <input
+          id="search"
+          type="search"
+          inputmode="search"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="Caută produs, brand, fabrică sau județ..."
+          aria-label="Caută produs sau brand românesc"
+          class="search-input" />
+        <button id="clearBtn" type="button" class="clear-btn" aria-label="Șterge căutarea">✕</button>
+      </div>
+
+      <p class="meta">Date verificate • acționariat românesc majoritar • actualizat 2026</p>
+    </div>
+
+    <div class="ribbon">
+      <div class="wrap pills-wrap">
+        <button id="pillsLeft" type="button" class="chev" aria-label="Derulează categorii stânga">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <div id="pills" class="pills" role="group" aria-label="Filtrează pe categorii"></div>
+        <button id="pillsRight" type="button" class="chev" aria-label="Derulează categorii dreapta">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONȚINUT -->
+  <main class="wrap main">
+    <div class="print-only" style="text-align:center;margin-bottom:14px;">
+      <p style="font-size:20pt;font-weight:800;margin:0;letter-spacing:-.02em;">Raft Românesc – Produse și branduri 100% românești</p>
+      <p style="font-size:10pt;margin:4px 0 0;">Ghid de buzunar pentru cumpărături</p>
+    </div>
+
+    <p id="resultInfo" class="info" aria-live="polite"></p>
+
+    <div id="categories" class="grid"></div>
+
+    <div id="emptyState" class="empty" role="status">
+      <span class="empty-ico" aria-hidden="true">🔎</span>
+      <p>Nu am găsit niciun produs românesc corespunzător căutării.</p>
+    </div>
+
+    <!-- 6. CONSILIU: CAPCANE DE MARKETING -->
+    <section class="advisory" aria-labelledby="advisory-title">
+      <div class="advisory-head">
+        <span class="advisory-shield" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        </span>
+        <div>
+          <h2 id="advisory-title">Capcane Frecvente de Marketing</h2>
+          <p class="lead">Atenție la raft: nume românești, acționariat străin.</p>
+        </div>
+      </div>
+      <ul>
+        <li>
+          <span class="ico" aria-hidden="true">🌾</span>
+          <span><strong>„Raftul Bunicii”</strong> (făină/mălai) este GoodMills din Austria. <em>Alternative românești: Băneasa, Boromir, Pambac, Dobrogea.</em></span>
+        </li>
+        <li>
+          <span class="ico" aria-hidden="true">🥄</span>
+          <span><strong>„Delikat”</strong> este Unilever (Olanda/Marea Britanie), iar condimentele <strong>„Cosmin”</strong> sunt Fuchs (Germania).</span>
+        </li>
+        <li>
+          <span class="ico" aria-hidden="true">🍝</span>
+          <span><strong>„Monte Banato”</strong> (paste) este deținut de Colussi din Italia. <em>Alternativă: Băneasa.</em></span>
+        </li>
+        <li>
+          <span class="ico" aria-hidden="true">🧻</span>
+          <span><strong>„Pufina”</strong> aparține unor fonduri străine de investiții. <em>Alternative: Mototol, Papely.</em></span>
+        </li>
+        <li>
+          <span class="ico" aria-hidden="true">🥤</span>
+          <span><strong>„SanoVita”</strong> este deținută de fondul american Highlander Partners.</span>
+        </li>
+        <li>
+          <span class="ico" aria-hidden="true">🧴</span>
+          <span><strong>„Elmiplant”</strong> este deținută de Sarantis din Grecia. <em>Alternative: Gerovital, Farmec, Doina, Cosmetic Plant.</em></span>
+        </li>
+        <li>
+          <span class="ico" aria-hidden="true">💧</span>
+          <span><strong>„Carpatina”</strong> este deținută de Prodal '94 (acționari străini), <strong>„Bucovina”</strong> aparține Maspex (Polonia), iar <strong>„Dorna”</strong> face parte din Coca-Cola HBC.</span>
+        </li>
+        <li>
+          <span class="ico" aria-hidden="true">🍫</span>
+          <span><strong>Ciocolata</strong> (ROM, Kandia, Măgura, Poiana) și <strong>margarina</strong> (Delma, Rama, Linco) sunt deținute 100% de grupuri străine.</span>
+        </li>
+        <li>
+          <span class="ico" aria-hidden="true">📋</span>
+          <span>Tot ce nu este inclus reprezintă domenii fără opțiuni majore cu acționariat românesc la raft sau aflate în curs de documentare.</span>
+        </li>
+      </ul>
+    </section>
+
+    <footer class="controls">
+      <button type="button" class="print-btn js-print" aria-label="Tipărește sau salvează PDF">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+        <span>Tipărește / Salvează PDF</span>
+      </button>
+      <span class="offline">📴 Merge offline</span>
+    </footer>
+  </main>
+
+  <button id="toTop" type="button" class="totop hidden-print" aria-label="Înapoi sus">↑</button>
+
+<script>
+(function () {
+  "use strict";
+
+  var DATA = [
+    {
+      id: "lactate", name: "Lapte și Lactate", icon: "🥛", color: "#0ea5e9",
+      brands: [
+        { n: "Artesana", d: "Familie română, Tecuci", loc: "Tecuci" },
+        { n: "Lăptăria cu Caimac", d: "Agroserv Măriuța, Ialomița", loc: "Ialomița" },
+        { n: "Mirdatod / Lactate de Ibănești", d: "Frații Todoran, Mureș", loc: "Mureș" },
+        { n: "Monor", d: "Adrian Creosteanu, Ioan și Alin Neagoș, Bistrița-Năsăud", loc: "Bistrița-Năsăud" },
+        { n: "Solomonescu", d: "Familia Solomonescu, Botoșani", loc: "Botoșani" },
+        { n: "Nucet", d: "Familia Erbașu", loc: "România" },
+        { n: "SIM", d: "Florin Herbai, Timiș", loc: "Timiș" },
+        { n: "TU!", d: "Familie din Tulcea", loc: "Tulcea" }
+      ]
+    },
+    {
+      id: "branzeturi", name: "Brânzeturi", icon: "🧀", color: "#f59e0b",
+      brands: [
+        { n: "Tudia", d: "Familie din Suceava, din 1999", loc: "Suceava" },
+        { n: "Therezia", d: "Familia Bartha, din 1994", loc: "România" },
+        { n: "Lăptăria cu Caimac", d: "Fermier român, Ialomița", loc: "Ialomița" },
+        { n: "Brădet", d: "Marius Badea, Argeș", loc: "Argeș" },
+        { n: "Lactate de Ibănești / Mirdatod", d: "Telemea DOP & Cașcaval de Săveni, Mureș", loc: "Mureș" }
+      ]
+    },
+    {
+      id: "unt", name: "Unt", icon: "🧈", color: "#eab308",
+      brands: [
+        { n: "Lăptăria cu Caimac", d: "Agroserv Măriuța", loc: "Ialomița" },
+        { n: "Lacto Food", d: "Vasile Bujor Groza", loc: "România" },
+        { n: "Nucet / Erbalact", d: "Erbalact", loc: "România" },
+        { n: "Unt de Ibănești", d: "Mirdatod, Mureș", loc: "Mureș" }
+      ]
+    },
+    {
+      id: "iaurt", name: "Iaurt", icon: "🍶", color: "#4f46e5",
+      brands: [
+        { n: "Artesana", d: "Tecuci, Galați", loc: "Tecuci" },
+        { n: "Lăptăria cu Caimac", d: "Ialomița", loc: "Ialomița" },
+        { n: "Monor", d: "Bistrița-Năsăud", loc: "Bistrița-Năsăud" },
+        { n: "Sim", d: "Timiș", loc: "Timiș" },
+        { n: "Ibănești", d: "Mureș", loc: "Mureș" },
+        { n: "Solomonescu", d: "Botoșani", loc: "Botoșani" }
+      ]
+    },
+    {
+      id: "oua", name: "Ouă", icon: "🥚", color: "#f97316",
+      brands: [
+        { n: "Agricola", d: "Grigore Horoi, Bacău", loc: "Bacău" },
+        { n: "Regalina", d: "Medici veterinari din Bran / Râșnov, din 1994", loc: "Brașov" },
+        { n: "La Provincia", d: "Familia Paraschiv, Carmistin", loc: "România" }
+      ]
+    },
+    {
+      id: "ulei", name: "Ulei & Zahăr", icon: "🌻", color: "#ca8a04",
+      brands: [
+        { n: "Spornic", d: "Prutul SA, capital românesc", loc: "Galați" },
+        { n: "Ardealul", d: "Prutul SA, fabrică Galați", loc: "Galați" },
+        { n: "Argus", d: "Argus SA, Constanța", loc: "Constanța" },
+        { n: "Zahăr Bod", d: "Mihaela Neagu, Brașov – fabrică românească din 1889", loc: "Brașov" },
+        { n: "Zahăr Luduș", d: "Mihaela Neagu & Mihail-Daniel Matache, Mureș – preluată de la Tereos în 2023", loc: "Mureș" },
+        { n: "Furnicuța", d: "Lucsor Impex, Buzău", loc: "Buzău" }
+      ]
+    },
+    {
+      id: "paine", name: "Pâine, Făină & Paste", icon: "🍞", color: "#a16207",
+      brands: [
+        { n: "Boromir", d: "Familia Boromiz, fondat 1994, Râmnicu Vâlcea", loc: "Vâlcea" },
+        { n: "Dobrogea", d: "Capital românesc, Constanța", loc: "Constanța" },
+        { n: "Pambac", d: "Familia Grigoriu, Bacău", loc: "Bacău" },
+        { n: "Băneasa", d: "Paste și Făină, capital românesc", loc: "București" }
+      ]
+    },
+    {
+      id: "mezeluri", name: "Mezeluri & Carne", icon: "🥩", color: "#e11d48",
+      brands: [
+        { n: "Aldis", d: "Familia Naghi, Călărași", loc: "Călărași" },
+        { n: "Cris-Tim", d: "Familia Timiș", loc: "Ilfov" },
+        { n: "Fox", d: "Familia Vulpoiu, București", loc: "București" },
+        { n: "Meda", d: "Meda Prod 98, capital românesc", loc: "România" },
+        { n: "Angst", d: "Sorin Minea", loc: "România" },
+        { n: "DIANA Mezeluri", d: "Familia Crăciunescu, Vâlcea", loc: "Vâlcea" },
+        { n: "Kosarom", d: "Familia Apostol, Pașcani – sistem integrat carne de porc", loc: "Iași" }
+      ]
+    },
+    {
+      id: "pateu", name: "Pateu", icon: "🥫", color: "#dc2626",
+      brands: [
+        { n: "Bucegi", d: "Familiile Creștin și Gașpar / Scandia Food", loc: "România" },
+        { n: "Scandia Sibiu", d: "Familiile Creștin și Gașpar", loc: "Sibiu" },
+        { n: "Sadu", d: "Grupul Scandia", loc: "Gorj" },
+        { n: "Balea", d: "Grupul Scandia", loc: "Sibiu" }
+      ]
+    },
+    {
+      id: "sosuri", name: "Sosuri & Conserve", icon: "🍅", color: "#10b981",
+      brands: [
+        { n: "Râureni", d: "Familia Mutu, Vâlcea", loc: "Vâlcea" },
+        { n: "Arovit", d: "Familia Bob, Valea lui Mihai, Bihor", loc: "Bihor" },
+        { n: "Mustardino", d: "Sitemani, Sibiu – atestat Ministerul Agriculturii", loc: "Sibiu" },
+        { n: "Topoloveni", d: "Sonimpex, Bibiana Stanciulov – magiun & zacuscă", loc: "Argeș" }
+      ]
+    },
+    {
+      id: "apa", name: "Apă Minerală", icon: "💧", color: "#06b6d4",
+      note: "Aqua Carpatica are 20% acțiuni deținute de PepsiCo, iar Dorna / Poiana Negri aparțin grupului elvețiano-elen Coca-Cola HBC.",
+      brands: [
+        { n: "Borsec", d: "Romaqua Group, Octavian Crețu", loc: "Harghita" },
+        { n: "Stânceni", d: "Romaqua Group", loc: "Harghita" },
+        { n: "Aquatique", d: "Romaqua Group", loc: "România" },
+        { n: "Perla Harghitei", d: "Familia Kurko, Harghita", loc: "Harghita" },
+        { n: "Tușnad", d: "Familia Kurko", loc: "Harghita" },
+        { n: "Tiva Harghita", d: "Familia Kurko", loc: "Harghita" },
+        { n: "Zizin", d: "Familia Lazăr, Brașov", loc: "Brașov" },
+        { n: "Izvorul Minunilor", d: "European Drinks, Bihor", loc: "Bihor" },
+        { n: "Bilbor", d: "Aqua Bilbor, Maramureș", loc: "Harghita" },
+        { n: "Vâlcele", d: "Familia Manole, izvorul Elisabeta, Covasna", loc: "Covasna" },
+        { n: "Lipova", d: "Nicoltana SA, Familia Croitoru – brand istoric din 1897, județul Arad", loc: "Arad" },
+        { n: "Keia / Izvorul Zăganului", d: "Nicoltana SA, Masivul Ciucaș, Prahova", loc: "Prahova" },
+        { n: "Biborțeni", d: "Biborțeni Aqua SRL, Covasna – izvor atestat din 1871", loc: "Covasna" }
+      ]
+    },
+    {
+      id: "sucuri", name: "Sucuri", icon: "🧃", color: "#84cc16",
+      brands: [
+        { n: "Giusto & Giusto Natura", d: "Romaqua Group, Borsec", loc: "Harghita" },
+        { n: "Frutti Fresh & Adria", d: "European Drinks, familia Micula", loc: "Bihor" }
+      ]
+    },
+    {
+      id: "bere", name: "Bere Tradițională & Artizanală", icon: "🍺", color: "#b45309",
+      note: "Timișoreana, Ursus, Ciucaș sunt Asahi – Japonia; Bucegi, Silva, Ciuc sunt Heineken – Olanda; Bergenbier este Molson Coors – SUA/Canada.",
+      brands: [
+        { n: "Bermas Suceava", d: "Mărcile Suceava Clasic, Bermas, Călimani, Solca – fabrică românească listată la bursă, asociația salariaților", loc: "Suceava" },
+        { n: "Zăganu", d: "Alexandru Geamănu & Laurențiu Bănescu, Prahova", loc: "Prahova" },
+        { n: "Clinica de Bere / Terapia", d: "Timișoara", loc: "Timiș" },
+        { n: "Nemțeana", d: "Roman, Neamț", loc: "Neamț" },
+        { n: "Hop Hooligans", d: "Jilava", loc: "Ilfov" },
+        { n: "Bereta Brewing Co.", d: "Timișoara", loc: "Timiș" },
+        { n: "Carol Beer", d: "Buftea", loc: "Ilfov" }
+      ]
+    },
+    {
+      id: "curatenie", name: "Curățenie & Detergenți", icon: "🧼", color: "#14b8a6",
+      note: "Dero e Unilever – Anglia/Olanda; Persil / Perwoll sunt Henkel – Germania; Ariel / Tide sunt P&G – SUA.",
+      brands: [
+        { n: "Nufăr & Triumf", d: "Produse de Farmec SA Cluj-Napoca, capital 100% românesc", loc: "Cluj" },
+        { n: "BOON", d: "Trei antreprenori români, producție locală", loc: "România" },
+        { n: "Cashmere Aroma", d: "Cristina Codiță, parfumuri de rufe", loc: "România" }
+      ]
+    },
+    {
+      id: "magazine", name: "Magazine & Supermarketuri", icon: "🛒", color: "#7c3aed",
+      brands: [
+        { n: "Carrefour România & Supeco", d: "Preluat integral în 2026 de Pavăl Holding / frații Pavăl – fondatorii Dedeman", loc: "România" },
+        { n: "Senic Gross & Market", d: "Senic Com, Familia Cîmpeanu, Craiova – rețea națională cash & carry", loc: "Dolj" },
+        { n: "Annabella", d: "Familia Mutu, Vâlcea – peste 200 de magazine", loc: "Vâlcea" },
+        { n: "DIANA", d: "Familia Crăciunescu, Vâlcea", loc: "Vâlcea" },
+        { n: "Unicarm", d: "Vasile Lucuț, Satu Mare", loc: "Satu Mare" },
+        { n: "Paco Supermarket", d: "Feliciu Paraschiv, Vrancea", loc: "Vrancea" }
+      ]
+    },
+    {
+      id: "benzinarii", name: "Benzinării", icon: "⛽", color: "#64748b",
+      brands: [
+        { n: "TSV", d: "TSV Petroliere SRL – Bragadiru, Ilfov, capital 100% românesc", loc: "Ilfov" },
+        { n: "OSCAR Downstream", d: "Alin Niculae / Alfa Group", loc: "România" },
+        { n: "RBC Gas", d: "Iustin Crîngașu, Dâmbovița/Ilfov", loc: "Dâmbovița" }
+      ]
+    },
+    {
+      id: "farmacii", name: "Farmacii", icon: "💊", color: "#16a34a",
+      brands: [
+        { n: "Catena", d: "Anca Vlad, Fildas-Catena", loc: "România" },
+        { n: "Farmacia Tei / Bebe Tei", d: "Roxana Maftei & frații Pavăl / Dedeman", loc: "România" },
+        { n: "Farmacia Dona", d: "Dr. Eugen Banciu, Siepcofar", loc: "Sibiu" }
+      ]
+    },
+    {
+      id: "banci", name: "Bănci & Servicii", icon: "🏦", color: "#334155",
+      brands: [
+        { n: "Banca Transilvania", d: "Cluj, capital majoritar românesc ~80%", loc: "Cluj" },
+        { n: "CEC Bank", d: "Statul Român, fondată 1864", loc: "București" },
+        { n: "Exim Banca Românească", d: "Statul Român", loc: "București" }
+      ]
+    },
+    {
+      id: "pui", name: "Carne de Pui & Pasăre", icon: "🍗", color: "#c2410c",
+      brands: [
+        { n: "CocoRico", d: "Aaylex One, Bogdan Stanca, Buzău – 100% românesc", loc: "Buzău" },
+        { n: "Fragedo & Papane", d: "Transavia, Familia Popa, Alba Iulia", loc: "Alba" },
+        { n: "Puiul Fericit / Agricola", d: "Grigore Horoi, Bacău", loc: "Bacău" },
+        { n: "La Provincia", d: "Carmistin, Familia Paraschiv", loc: "România" },
+        { n: "Deliciosul de Vaslui / Safir", d: "Familia Safir, Vaslui – afacere românească de familie din 1991", loc: "Vaslui" }
+      ]
+    },
+    {
+      id: "inghetata", name: "Înghețată", icon: "🍦", color: "#ec4899",
+      brands: [
+        { n: "Corso", d: "Macromex, Dan Minulescu – capital românesc", loc: "România" },
+        { n: "La Strada", d: "Macromex, Dan Minulescu", loc: "România" }
+      ]
+    },
+    {
+      id: "peste", name: "Pește & Salate de Icre", icon: "🐟", color: "#0e7490",
+      brands: [
+        { n: "Negro 2000", d: "Florian Negroiu, București, din 1993", loc: "București" },
+        { n: "Deltaica", d: "Familia Buhai, Tulcea – preparate și icre tradiționale", loc: "Tulcea" }
+      ]
+    },
+    {
+      id: "gustari", name: "Gustări, Covrigei & Pufuleți", icon: "🥨", color: "#92400e",
+      brands: [
+        { n: "Gusto Pufuleți", d: "Phoenixy, Băicoi, Prahova – din 1992", loc: "Prahova" },
+        { n: "Croco", d: "Damian Mereu, Onești, Bacău – covrigei, sticksuri, crackers", loc: "Bacău" },
+        { n: "Eugenia", d: "Dobrogea Grup, Constanța", loc: "Constanța" }
+      ]
+    },
+    {
+      id: "dulciuri", name: "Dulciuri Tradiționale (Halva & Nuga)", icon: "🍬", color: "#db2777",
+      brands: [
+        { n: "Feleacul", d: "Grupul Boromir, Sibiu/Cluj – halva de floarea-soarelui, nuga", loc: "Sibiu" }
+      ]
+    },
+    {
+      id: "vinuri", name: "Vinuri & Băuturi Tradiționale", icon: "🍷", color: "#9f1239",
+      brands: [
+        { n: "Jidvei", d: "Familia Necșulescu, Alba / Târnave", loc: "Alba" },
+        { n: "Cotnari", d: "Constantin Deleanu, Iași", loc: "Iași" },
+        { n: "Cramele Recaș", d: "Gheorghe Iova, Ioan Georgiu, Banat", loc: "Timiș" },
+        { n: "Domeniile Tohani", d: "Virgil Mândru, Prahova", loc: "Prahova" },
+        { n: "Pălinca Zetea", d: "Silviu Zetea, Medieșu Aurit, Satu Mare", loc: "Satu Mare" }
+      ]
+    },
+    {
+      id: "cafea", name: "Cafea", icon: "☕", color: "#6b4423",
+      brands: [
+        { n: "Cafea Fortuna", d: "Valentin Morar, Ilfov – Rendez-vous, Crema, Verde – singurul brand mare românesc de cafea", loc: "Ilfov" }
+      ]
+    },
+    {
+      id: "ceaiuri", name: "Ceaiuri & Remedii Naturale", icon: "🫖", color: "#166534",
+      brands: [
+        { n: "Fares Orăștie", d: "Hunedoara – tradiție din 1929", loc: "Hunedoara" },
+        { n: "Dacia Plant", d: "Bod, Brașov", loc: "Brașov" },
+        { n: "Alevia", d: "Fălticeni, Suceava", loc: "Suceava" }
+      ]
+    },
+    {
+      id: "miere", name: "Miere & Produse Apicole", icon: "🍯", color: "#d97706",
+      brands: [
+        { n: "Apidava / Roua Florilor", d: "Victor Mateș, Blaj, Alba", loc: "Alba" },
+        { n: "Complex Apicol Veceslav Harnaj", d: "București", loc: "București" }
+      ]
+    },
+    {
+      id: "esente", name: "Esențe & Ingrediente Prăjituri", icon: "🧁", color: "#be185d",
+      brands: [
+        { n: "Coseli", d: "Familia Budeanu, Iași – din 1992", loc: "Iași" }
+      ]
+    },
+    {
+      id: "cosmetice", name: "Cosmetice & Igienă Personală", icon: "🧴", color: "#a21caf",
+      brands: [
+        { n: "Gerovital & Farmec", d: "Farmec SA, Cluj-Napoca", loc: "Cluj" },
+        { n: "Doina", d: "Farmec SA, emulsie clasică", loc: "Cluj" },
+        { n: "Aslavital", d: "Farmec SA", loc: "Cluj" },
+        { n: "Cosmetic Plant", d: "Familia Laszlo, Cluj-Napoca", loc: "Cluj" },
+        { n: "Săpunul Cheia", d: "Alin Barna, Baia Mare – din 1886", loc: "Maramureș" },
+        { n: "GennaDent & VivaNatura", d: "Leonard Răduț, București", loc: "București" }
+      ]
+    },
+    {
+      id: "hartie", name: "Hârtie Igienică & Șervețele", icon: "🧻", color: "#0369a1",
+      brands: [
+        { n: "Mototol", d: "Rom Paper / Vrancart, fabrici Brașov și Adjud", loc: "Brașov" },
+        { n: "Papely", d: "Rom Paper / Vrancart, Adjud", loc: "Vrancea" }
+      ]
+    }
+  ];
+
+  var PIN_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-5.5-7-11a7 7 0 1 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>';
+  var CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>';
+
+  var $ = function (s) { return document.querySelector(s); };
+  var categoriesEl = $("#categories");
+  var pillsEl = $("#pills");
+  var searchEl = $("#search");
+  var clearBtn = $("#clearBtn");
+  var resultInfo = $("#resultInfo");
+  var emptyState = $("#emptyState");
+  var toTop = $("#toTop");
+  var pillsLeft = $("#pillsLeft");
+  var pillsRight = $("#pillsRight");
+
+  var TOTAL_BRANDS = DATA.reduce(function (sum, c) { return sum + c.brands.length; }, 0);
+
+  var activeCat = "all";
+  var query = "";
+
+  function norm(s) {
+    return (s || "").toString()
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  }
+
+  function esc(s) {
+    return (s || "").replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  function pluralProduse(n) {
+    return n === 1 ? "1 produs" : n + " produse";
+  }
+
+  function highlight(text, q) {
+    if (!q) return esc(text);
+    var nText = norm(text);
+    var nQ = norm(q);
+    var idx = nText.indexOf(nQ);
+    if (idx === -1) return esc(text);
+    return esc(text.slice(0, idx)) +
+      "<mark>" + esc(text.slice(idx, idx + nQ.length)) + "</mark>" +
+      esc(text.slice(idx + nQ.length));
+  }
+
+  function brandMatches(b, q) {
+    if (!q) return true;
+    return norm(b.n).indexOf(q) !== -1 ||
+      norm(b.d).indexOf(q) !== -1 ||
+      norm(b.loc).indexOf(q) !== -1;
+  }
+
+  function catTextMatches(c, q) {
+    if (!q) return true;
+    return norm(c.name).indexOf(q) !== -1;
+  }
+
+  function pillHTML(id, label, icon) {
+    var active = activeCat === id;
+    return '<button type="button" class="pill' + (active ? " active" : "") + '" data-cat="' + id + '" ' +
+      'aria-pressed="' + (active ? "true" : "false") + '" ' +
+      'aria-label="Filtrează după: ' + esc(label) + '">' +
+      '<span aria-hidden="true">' + icon + '</span><span>' + esc(label) + '</span></button>';
+  }
+
+  function updatePillStates() {
+    Array.prototype.forEach.call(pillsEl.querySelectorAll("[data-cat]"), function (btn) {
+      var active = activeCat === btn.getAttribute("data-cat");
+      btn.classList.toggle("active", active);
+      btn.setAttribute("aria-pressed", active ? "true" : "false");
+    });
+  }
+
+  function renderPills() {
+    var html = pillHTML("all", "Toate", "📋");
+    DATA.forEach(function (c) {
+      var count = c.brands.filter(function (b) { return brandMatches(b, query); }).length;
+      if (query && count === 0 && !catTextMatches(c, query)) return;
+      html += pillHTML(c.id, c.name, c.icon);
+    });
+    pillsEl.innerHTML = html;
+  }
+
+  function rowHTML(b, q) {
+    return '<div class="brand-row">' +
+      '<span class="seal" aria-hidden="true">' + CHECK_SVG + '</span>' +
+      '<div class="brand-text">' +
+        '<p class="brand-name">' + highlight(b.n, q) + '</p>' +
+        '<p class="brand-desc">' + highlight(b.d, q) + '</p>' +
+      '</div>' +
+      (b.loc ? '<span class="loc-chip">' + PIN_SVG + esc(b.loc) + '</span>' : '') +
+    '</div>';
+  }
+
+  function renderCategories() {
+    var totalShown = 0;
+    var html = "";
+
+    DATA.forEach(function (c) {
+      if (activeCat !== "all" && activeCat !== c.id) return;
+
+      var categoryMatches = catTextMatches(c, query);
+      var visible = c.brands.filter(function (b) { return brandMatches(b, query); });
+      var brandsToShow = (!query || categoryMatches) ? c.brands : visible;
+      if (brandsToShow.length === 0) return;
+
+      totalShown++;
+
+      var rows = brandsToShow.map(function (b) { return rowHTML(b, query); }).join("");
+
+      var note = c.note
+        ? '<div class="note"><strong>ℹ️ Atenție:</strong> ' + highlight(c.note, query) + '</div>'
+        : "";
+
+      html += '<section class="card category-section" id="cat-' + c.id + '" aria-labelledby="cat-title-' + c.id + '">' +
+        '<header class="card-head" style="background:linear-gradient(135deg,' + c.color + '1a 0%,rgba(255,255,255,0) 82%)">' +
+          '<span class="card-ico" aria-hidden="true">' + c.icon + '</span>' +
+          '<h2 class="card-title" id="cat-title-' + c.id + '">' + esc(c.name) + '</h2>' +
+          '<span class="count-pill">' + pluralProduse(brandsToShow.length) + '</span>' +
+        '</header>' +
+        '<div class="card-body">' + rows + '</div>' +
+        note +
+      '</section>';
+    });
+
+    categoriesEl.innerHTML = html;
+    emptyState.classList.toggle("show", totalShown === 0);
+    updateInfo(totalShown);
+  }
+
+  function updateInfo(total) {
+    var brandCount = 0;
+    DATA.forEach(function (c) {
+      if (activeCat !== "all" && activeCat !== c.id) return;
+      brandCount += c.brands.filter(function (b) { return brandMatches(b, query); }).length;
+    });
+    if (!query && activeCat === "all") {
+      resultInfo.textContent = DATA.length + " categorii · " + TOTAL_BRANDS + " branduri și fabrici românești";
+    } else {
+      resultInfo.textContent = total + (total === 1 ? " categorie" : " categorii") + " · " +
+        brandCount + (brandCount === 1 ? " brand găsit" : " branduri găsite");
+    }
+  }
+
+  function render() {
+    renderPills();
+    renderCategories();
+    scheduleArrows();
+  }
+
+  var renderTicking = false;
+  function scheduleRender() {
+    if (renderTicking) return;
+    renderTicking = true;
+    window.requestAnimationFrame(function () {
+      renderTicking = false;
+      render();
+    });
+  }
+
+  // Căutare instant (scrierile în DOM sunt grupate într-un singur frame)
+  searchEl.addEventListener("input", function () {
+    query = norm(searchEl.value.trim());
+    clearBtn.classList.toggle("show", searchEl.value.length > 0);
+    scheduleRender();
+  });
+
+  clearBtn.addEventListener("click", function () {
+    searchEl.value = "";
+    query = "";
+    clearBtn.classList.remove("show");
+    render();
+    searchEl.focus();
+  });
+
+  // ---------- RIBON CATEGORII ----------
+  var dragMoved = false;
+  var arrowsTicking = false;
+  var pillsScrollable = false;
+
+  function updateArrows() {
+    if (!pillsLeft || !pillsRight) return;
+    var maxScroll = pillsEl.scrollWidth - pillsEl.clientWidth;
+    pillsScrollable = maxScroll > 1;
+    pillsLeft.disabled = pillsEl.scrollLeft <= 2;
+    pillsRight.disabled = pillsEl.scrollLeft >= maxScroll - 2;
+  }
+
+  function scheduleArrows() {
+    if (arrowsTicking) return;
+    arrowsTicking = true;
+    window.requestAnimationFrame(function () {
+      arrowsTicking = false;
+      updateArrows();
+    });
+  }
+
+  pillsEl.addEventListener("click", function (e) {
+    if (dragMoved) { dragMoved = false; e.preventDefault(); e.stopPropagation(); return; }
+    var btn = e.target.closest("[data-cat]");
+    if (!btn) return;
+    var hadQuery = query.length > 0;
+    activeCat = btn.getAttribute("data-cat");
+    if (activeCat !== "all") {
+      searchEl.value = "";
+      query = "";
+      clearBtn.classList.remove("show");
+    }
+    if (hadQuery) renderPills();
+    updatePillStates();
+    renderCategories();
+    scheduleArrows();
+    window.requestAnimationFrame(function () {
+      var first = categoriesEl.querySelector(".card");
+      if (first) {
+        var top = first.getBoundingClientRect().top + window.scrollY - 12;
+        window.scrollTo({ top: top, behavior: "smooth" });
+      }
+    });
+  });
+
+  // Rotița mouse-ului -> derulare orizontală, throttled prin requestAnimationFrame
+  var wheelTicking = false;
+  var wheelAccum = 0;
+  pillsEl.addEventListener("wheel", function (e) {
+    if (pillsScrollable && Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+      e.preventDefault();
+      wheelAccum += e.deltaY;
+      if (wheelTicking) return;
+      wheelTicking = true;
+      window.requestAnimationFrame(function () {
+        wheelTicking = false;
+        pillsEl.scrollLeft += wheelAccum;
+        wheelAccum = 0;
+        scheduleArrows();
+      });
+    }
+  }, { passive: false });
+
+  if (pillsLeft && pillsRight) {
+    pillsLeft.addEventListener("click", function () {
+      pillsEl.scrollBy({ left: -260, behavior: "smooth" });
+    });
+    pillsRight.addEventListener("click", function () {
+      pillsEl.scrollBy({ left: 260, behavior: "smooth" });
+    });
+    pillsEl.addEventListener("scroll", scheduleArrows, { passive: true });
+    window.addEventListener("resize", scheduleArrows, { passive: true });
+  }
+
+  // Tragere cu mouse-ul (click & drag), doar pe desktop
+  var canDrag = window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  if (canDrag) {
+    var isDown = false, startX = 0, startScroll = 0, dragTicking = false, dragDx = 0;
+
+    pillsEl.addEventListener("mousedown", function (e) {
+      if (e.button !== 0) return;
+      isDown = true;
+      dragMoved = false;
+      startX = e.pageX;
+      startScroll = pillsEl.scrollLeft;
+      pillsEl.classList.add("dragging");
+    });
+
+    window.addEventListener("mousemove", function (e) {
+      if (!isDown) return;
+      dragDx = e.pageX - startX;
+      if (Math.abs(dragDx) > 4) dragMoved = true;
+      if (dragTicking) {
+        if (dragMoved) e.preventDefault();
+        return;
+      }
+      dragTicking = true;
+      window.requestAnimationFrame(function () {
+        dragTicking = false;
+        pillsEl.scrollLeft = startScroll - dragDx;
+        scheduleArrows();
+      });
+      if (dragMoved) e.preventDefault();
+    });
+
+    window.addEventListener("mouseup", function () {
+      if (!isDown) return;
+      isDown = false;
+      pillsEl.classList.remove("dragging");
+      scheduleArrows();
+    });
+  }
+
+  // Tipărire / PDF
+  Array.prototype.forEach.call(document.querySelectorAll(".js-print"), function (btn) {
+    btn.addEventListener("click", function () {
+      var prevCat = activeCat, prevQuery = query, prevVal = searchEl.value;
+      activeCat = "all"; query = ""; render();
+      window.setTimeout(function () {
+        window.print();
+        activeCat = prevCat; query = prevQuery; searchEl.value = prevVal;
+        clearBtn.classList.toggle("show", !!prevVal);
+        render();
+      }, 120);
+    });
+  });
+
+  // Buton sus
+  window.addEventListener("scroll", function () {
+    toTop.classList.toggle("show", window.scrollY > 500);
+  }, { passive: true });
+  toTop.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
+
+  render();
+})();
+</script>
+</body>
+</html>
